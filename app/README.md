@@ -3,23 +3,6 @@
 
 Ce document décrit la structure du projet backend, comment l'installer, lancer les tests et visualiser l'API.
 
-## Quick Start
-### Requirements:
-1. docker compose
-2. [taskfile](https://taskfile.dev/)
-	```sh
-	curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | sudo -E bash
-	apt install task
-	```
-
-```sh
-git clone https://github.com/boukerramAhmed/Ticket-management.git
-cd Ticket-management/
-task up
-task test
-```
-
-
 ## Structure du projet (aperçu)
 
 Racine: `backend/`
@@ -107,17 +90,16 @@ apt install task
 $ task
 18:19 $ task
 task: Available tasks for this project:
-* black:                Vérifie le formatage du code avec black
-* build:                build l'image du backend
-* down:                 Arrête tous les services Docker Compose
-* flake8:               Vérifie le style du code avec flake8 et formate avec black
-* insert-tickets:       Insère les tickets de démo dans la base de données
-* load-data:            chargement des données
-* logs:                 Affiche les logs des services Docker
-* restart:              Redémarre le conteneur ticket-api
-* status:               Affiche le statut des services Docker
-* test:                 Lance les tests unitaires
-* up:                   Démarre tous les services Docker Compose            Démarre tous les services Docker Compose
+* black:           Vérifie le formatage du code avec black
+* build:           build l'image du backend
+* down:            Arrête tous les services Docker Compose
+* flake8:          Vérifie le style du code avec flake8 et formate avec black
+* load-data:       chargement des données
+* logs:            Affiche les logs des services Docker
+* restart:         Redémarre le conteneur ticket-api
+* status:          Affiche le statut des services Docker
+* test:            Lance les tests unitaires
+* up:              Démarre tous les services Docker Compose
 
 ```
 
@@ -126,14 +108,6 @@ task up
 task test
 task flask8
 ```
-#### Charger les données de démo
-
-```shell
-task insert-tickets
-curl -s 'http://localhost:8000/tickets/?offset=0&limit=100' | jq '.tickets | length' # réponse -> 31
-``` 
-
-
 #### Lancer les tests
 
 Deux approches : local (direct) ou via les tâches Docker fournies.

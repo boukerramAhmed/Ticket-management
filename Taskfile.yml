@@ -1,0 +1,58 @@
+# Task est un outil de build moderne qui remplace Make
+version: '3'
+
+tasks:
+  up:
+    desc: "Démarre tous les services Docker Compose"
+    cmds:
+      - docker compose up -d
+
+  down:
+    desc: "Arrête tous les services Docker Compose"
+    cmds:
+      - docker compose down
+
+  logs:
+    desc: "Affiche les logs des services Docker"
+    cmds:
+      - docker compose logs -f ticket-api
+
+  status:
+    desc: "Affiche le statut des services Docker"
+    cmds:
+      - docker compose ps
+
+  restart:
+    desc: "Redémarre le conteneur ticket-api"
+    cmds:
+      - docker compose restart ticket-api
+  
+  test:
+    desc: "Lance les tests unitaires"
+    cmds:
+      - docker compose exec ticket-api python -m pytest tests/ -v -xvs
+
+  build:
+    desc: "build l'image du backend"
+    cmds:
+      - docker compose build ticket-api --no-cache
+
+  load-data:
+    desc: "chargement des données"
+    deps: [insert-users]  
+    cmds:
+      - echo "chargement des données"
+
+  flake8:
+    desc: "Vérifie le style du code avec flake8 et formate avec black"
+    cmds:
+      - flake8 .
+  black:
+    desc: "Vérifie le formatage du code avec black"
+    cmds: 
+      - black  .
+
+  insert-tickets:
+    desc: "Insère les tickets de démo dans la base de données"
+    cmds:
+      - docker compose exec ticket-api python data/load_tickets.py
